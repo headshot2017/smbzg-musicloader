@@ -40,6 +40,7 @@ public class MusicLoaderComponent : MonoBehaviour
         MusicLoader.Core.customMusic.Clear();
         BattleCache.MusicArray = MusicLoader.Core.originalMusicArray;
 
+        // get StreamingAssets/Music/Music Name/(loop and-or start)
         foreach (string _musicName in Directory.GetDirectories(path))
         {
             string musicPath = _musicName.Replace('\\', '/');
@@ -62,10 +63,14 @@ public class MusicLoaderComponent : MonoBehaviour
                     {
                         handler.streamAudio = fmt.Value.stream;
                         www.downloadHandler = handler;
-                        www.SendWebRequest();
-                        yield return www;
-
-                        data.StartupBackgroundMusic = handler.audioClip;
+                        yield return www.SendWebRequest();
+                        if (www.result == UnityWebRequest.Result.Success)
+                            data.StartupBackgroundMusic = handler.audioClip;
+                        else
+                        {
+                            MelonLoader.Melon<MusicLoader.Core>.Logger.Msg($"Failed to load \"{musicName}/start.{fmt.Key}\". result={www.result}");
+                            Debug.Log($"MusicLoader: Failed to load \"{musicName}/start.{fmt.Key}\". result={www.result}");
+                        }
                     }
                 }
 
@@ -78,10 +83,14 @@ public class MusicLoaderComponent : MonoBehaviour
                     {
                         handler.streamAudio = fmt.Value.stream;
                         www.downloadHandler = handler;
-                        www.SendWebRequest();
-                        yield return www;
-
-                        data.BackgroundMusic = handler.audioClip;
+                        yield return www.SendWebRequest();
+                        if (www.result == UnityWebRequest.Result.Success)
+                            data.BackgroundMusic = handler.audioClip;
+                        else
+                        {
+                            MelonLoader.Melon<MusicLoader.Core>.Logger.Msg($"Failed to load \"{musicName}/loop.{fmt.Key}\". result={www.result}");
+                            Debug.Log($"MusicLoader: Failed to load \"{musicName}/loop.{fmt.Key}\". result={www.result}");
+                        }
                     }
                 }
             }
@@ -94,8 +103,10 @@ public class MusicLoaderComponent : MonoBehaviour
 
             MusicLoader.Core.customMusic.Add(entry);
             MelonLoader.Melon<MusicLoader.Core>.Logger.Msg($"Added music \"{musicName}\"");
+            Debug.Log($"MusicLoader: Added music \"{musicName}\"");
         }
 
+        // get StreamingAssets/Music/Music Name
         foreach (string _musicName in Directory.GetFiles(path))
         {
             string musicPath = _musicName.Replace('\\', '/');
@@ -120,8 +131,13 @@ public class MusicLoaderComponent : MonoBehaviour
             {
                 handler.streamAudio = allowStream;
                 www.downloadHandler = handler;
-                www.SendWebRequest();
-                yield return www;
+                yield return www.SendWebRequest();
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    MelonLoader.Melon<MusicLoader.Core>.Logger.Msg($"Failed to load \"{musicName}\". result={www.result}");
+                    Debug.Log($"MusicLoader: Failed to load \"{musicName}\". result={www.result}");
+                    continue;
+                }
 
                 BattleMusicData data = ScriptableObject.CreateInstance<BattleMusicData>();
                 data.name = musicName;
@@ -134,6 +150,7 @@ public class MusicLoaderComponent : MonoBehaviour
 
                 MusicLoader.Core.customMusic.Add(entry);
                 MelonLoader.Melon<MusicLoader.Core>.Logger.Msg($"Added music \"{musicName}\"");
+                Debug.Log($"MusicLoader: Added music \"{musicName}\"");
             }
         }
 
@@ -141,6 +158,9 @@ public class MusicLoaderComponent : MonoBehaviour
         foreach (CustomMusicEntry entry in MusicLoader.Core.customMusic)
             FinalArray.Add(entry.id);
         BattleCache.MusicArray = FinalArray.ToArray();
+
+        MelonLoader.Melon<MusicLoader.Core>.Logger.Msg($"Loading finished with {MusicLoader.Core.customMusic.Count} custom music");
+        Debug.Log($"MusicLoader: Loading finished with {MusicLoader.Core.customMusic.Count} custom music");
 
         Destroy(gameObject);
     }
