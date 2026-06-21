@@ -2,7 +2,7 @@
 using HarmonyLib;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(MusicLoader.Core), "MusicLoader", "1.0.0", "Headshotnoby/headshot2017", null)]
+[assembly: MelonInfo(typeof(MusicLoader.Core), "MusicLoader", "1.1.0", "Headshotnoby/headshot2017", null)]
 [assembly: MelonGame("Jonathan Miller aka Zethros", "SMBZ-G")]
 
 namespace MusicLoader
