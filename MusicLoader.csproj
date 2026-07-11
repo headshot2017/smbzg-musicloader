@@ -27,11 +27,11 @@
 		<Reference Include="InputSystem.Samples.Visualizers">
 			<HintPath>C:\Users\juanp\Desktop\juegos\smbz-g 1.182\SMBZ-G_Data\Managed\InputSystem.Samples.Visualizers.dll</HintPath>
 		</Reference>
-		<Reference Include="mscorlib_old">
-			<HintPath>C:\Users\juanp\Desktop\juegos\smbz-g 1.182\SMBZ-G_Data\Managed\mscorlib_old.dll</HintPath>
-		</Reference>
 		<Reference Include="MyBox">
 			<HintPath>C:\Users\juanp\Desktop\juegos\smbz-g 1.182\SMBZ-G_Data\Managed\MyBox.dll</HintPath>
+		</Reference>
+		<Reference Include="SMBZModsMenu">
+		  <HintPath>..\..\Mods\SMBZModsMenu.dll</HintPath>
 		</Reference>
 		<Reference Include="Unity.2D.PixelPerfect">
 			<HintPath>C:\Users\juanp\Desktop\juegos\smbz-g 1.182\SMBZ-G_Data\Managed\Unity.2D.PixelPerfect.dll</HintPath>

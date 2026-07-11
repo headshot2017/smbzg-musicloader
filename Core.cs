@@ -21,6 +21,21 @@ namespace MusicLoader
         {
             originalMusicArray = BattleCache.MusicArray;
 
+            SMBZModsMenu.Core.ModEntries.Add(new()
+            {
+                info = Info,
+                reloadFunction = LoadMusicList,
+                updateLocation = SMBZModsMenu.ModUpdateLocation.Github,
+                updateRepo = "headshot2017/smbzg-musicloader"
+            });
+
+            LoadMusicList();
+        }
+
+        public void LoadMusicList()
+        {
+            if (GameObject.Find("MusicLoader") != null) return;
+
             GameObject obj = new GameObject("MusicLoader");
             GameObject.DontDestroyOnLoad(obj);
             obj.AddComponent<MusicLoaderComponent>();
