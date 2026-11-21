@@ -21,11 +21,11 @@ namespace MusicLoader
         {
             originalMusicArray = BattleCache.MusicArray;
 
-            SMBZModsMenu.Core.ModEntries.Add(new()
+            SMBZCoreMod.ModEntries.Add(new()
             {
                 info = Info,
                 reloadFunction = LoadMusicList,
-                updateLocation = SMBZModsMenu.ModUpdateLocation.Github,
+                updateLocation = SMBZModEntries.ModUpdateLocation.Github,
                 updateRepo = "headshot2017/smbzg-musicloader"
             });
 

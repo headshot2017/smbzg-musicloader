@@ -2,7 +2,7 @@
 
 Custom music loader for SMBZ-G.
 
-Requires [MelonLoader](https://melonwiki.xyz/#/?id=requirements) and [SMBZModsMenu](https://github.com/headshot2017/smbzg-modsmenu)
+Requires [MelonLoader](https://melonwiki.xyz/#/?id=requirements) and [SMBZCoreMod](https://github.com/headshot2017/smbzg-coremod)
 
 ## Custom music folder structure
 
